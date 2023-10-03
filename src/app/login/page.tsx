@@ -1,8 +1,12 @@
 'use client';
 
-import { FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 
 export default function LoginPage() {
+    const [isFailedLogin, setIsFailedLogin] = useState(false);
+    const router = useRouter();
+
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
@@ -13,11 +17,13 @@ export default function LoginPage() {
         });
 
         if (!response.ok) {
-            console.log(response);
+            setIsFailedLogin(true);
             return;
         }
 
         const user = await response.json();
+
+        router.push('/');
     }
 
     return (
@@ -27,6 +33,9 @@ export default function LoginPage() {
             <label>Password: </label>
             <input type="password" name="password" />
             <button type="submit">Login</button>
+            {isFailedLogin === true && (
+                <p color="red">Incorrect username or password.</p>
+            )}
         </form>
     );
 }
