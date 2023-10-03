@@ -5,8 +5,6 @@ import { cinema, Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 
-const CITY = 'Banja Luka';
-
 type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
 
 export default function Home() {
@@ -14,7 +12,7 @@ export default function Home() {
     const { user } = useContext(AuthContext);
 
     async function fetchCinemas() {
-        const response = await fetch(`/api/cinema?city=${CITY}`, {
+        const response = await fetch(`/api/cinema?city=${user?.city}`, {
             method: 'GET',
         });
 
@@ -32,7 +30,7 @@ export default function Home() {
     }, []);
 
     if (cinemas.length === 0) {
-        return <p>{`No cinemas found for city: ${CITY}`}</p>;
+        return <p>{`No cinemas found for city: ${user?.city}`}</p>;
     }
 
     return (
