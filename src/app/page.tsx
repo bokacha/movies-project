@@ -11,7 +11,7 @@ type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
 
 export default function Home() {
     const [cinemas, setCinemas] = useState<CinemaWithMovies[]>([]);
-    const {} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     async function fetchCinemas() {
         const response = await fetch(`/api/cinema?city=${CITY}`, {

@@ -1,27 +1,27 @@
 'use client';
 
+import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 
 export default function LoginPage() {
     const [isFailedLogin, setIsFailedLogin] = useState(false);
     const router = useRouter();
+    const { login } = useContext(AuthContext);
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            body: formData,
-        });
+        const username = formData.get('username') as string;
+        const password = formData.get('password') as string;
 
-        if (!response.ok) {
+        const loginSuccess = await login(username, password);
+
+        if (!loginSuccess) {
             setIsFailedLogin(true);
             return;
         }
-
-        const user = await response.json();
 
         router.push('/');
     }

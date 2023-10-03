@@ -1,3 +1,5 @@
+'use client';
+
 import { user } from '@prisma/client';
 import { createContext, ReactNode, useState } from 'react';
 
@@ -23,7 +25,24 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     const [user, setUser] = useState<user | null>(null);
 
     async function login(username: string, password: string) {
-        return false;
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        const userJson = await response.json();
+
+        setUser(userJson.user as user);
+
+        return true;
     }
 
     function logout() {
