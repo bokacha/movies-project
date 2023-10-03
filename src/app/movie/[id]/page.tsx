@@ -11,12 +11,17 @@ interface MoviePageParams {
 
 export default function MoviePage(params: MoviePageParams) {
     const [movie, setMovie] = useState<movie>();
+    const [fetching, setFetching] = useState(false);
 
     const fetchMovie = useCallback(
         async function fetchMovie() {
+            setFetching(true);
+
             const response = await fetch(`/api/movie?id=${params.params.id}`, {
                 method: 'GET',
             });
+
+            setFetching(false);
 
             if (!response.ok) {
                 return;
@@ -32,6 +37,10 @@ export default function MoviePage(params: MoviePageParams) {
     useEffect(() => {
         fetchMovie();
     }, [fetchMovie]);
+
+    if (fetching) {
+        return <p>Fetching movie...</p>;
+    }
 
     if (!movie) {
         return <p>{`Movie with id:${params.params.id} not found`}</p>;
