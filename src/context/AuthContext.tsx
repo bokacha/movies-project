@@ -1,7 +1,8 @@
 'use client';
 
 import { user } from '@prisma/client';
-import { createContext, ReactNode, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 type AuthContextData = {
     user: user | null;
@@ -23,6 +24,7 @@ type AuthContextProviderProps = {
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
     const [user, setUser] = useState<user | null>(null);
+    const router = useRouter();
 
     async function login(username: string, password: string) {
         const formData = new FormData();
@@ -48,6 +50,12 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     function logout() {
         setUser(null);
     }
+
+    useEffect(() => {
+        if (!user) {
+            router.push('/login');
+        }
+    }, [router, user]);
 
     return (
         <AuthContext.Provider value={{ user, login, logout }}>
