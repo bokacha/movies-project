@@ -1,12 +1,14 @@
 'use client';
 
-import { cinema } from '@prisma/client';
+import { cinema, Prisma } from '@prisma/client';
 import { useEffect, useState } from 'react';
 
 const CITY = 'Prijedor';
 
+type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
+
 export default function Home() {
-    const [cinemas, setCinemas] = useState<cinema[]>([]);
+    const [cinemas, setCinemas] = useState<CinemaWithMovies[]>([]);
 
     async function fetchCinemas() {
         const response = await fetch(`/api/cinema?city=${CITY}`, {
@@ -18,9 +20,8 @@ export default function Home() {
         }
 
         const fetchedCinemas = await response.json();
-        console.log(fetchedCinemas);
 
-        setCinemas(fetchedCinemas.cinemas as cinema[]);
+        setCinemas(fetchedCinemas.cinemas as CinemaWithMovies[]);
     }
 
     useEffect(() => {
@@ -31,5 +32,5 @@ export default function Home() {
         return <p>{`No cinemas found for city: ${CITY}`}</p>;
     }
 
-    return <h1>{`Available cinemas: ${cinemas.length}`}</h1>;
+    return <h1></h1>;
 }
