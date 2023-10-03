@@ -46,5 +46,12 @@ export default function MoviePage(params: MoviePageParams) {
         return <p>{`Movie with id:${params.params.id} not found`}</p>;
     }
 
-    return <h1>{movie.name}</h1>;
+    return (
+        <div>
+            <h1>{movie.name}</h1>
+            <p>{movie.description}</p>
+            <p>{`Duration: ${movie.runtime}`}</p>
+            <p>{`Year: ${movie.year}`}</p>
+        </div>
+    );
 }
