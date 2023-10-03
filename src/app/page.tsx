@@ -1,9 +1,10 @@
 'use client';
 
 import { cinema, Prisma } from '@prisma/client';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const CITY = 'Prijedor';
+const CITY = 'Banja Luka';
 
 type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
 
@@ -32,5 +33,25 @@ export default function Home() {
         return <p>{`No cinemas found for city: ${CITY}`}</p>;
     }
 
-    return <h1></h1>;
+    return (
+        <div>
+            {cinemas.map((cinema) => {
+                return (
+                    <div key={cinema.id}>
+                        <h1>{cinema.name}</h1>
+                        {cinema.movies.map((movie) => {
+                            return (
+                                <Link
+                                    key={movie.id}
+                                    href={`/movie/${movie.id}`}
+                                >
+                                    {movie.name}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                );
+            })}
+        </div>
+    );
 }
