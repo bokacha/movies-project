@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthContextProvider } from '@/context/AuthContext';
 import { AuthGuard } from './components/auth/AuthGuard';
+import { Header } from './components/header/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <AuthContextProvider>
-                    <h1>Cinema application</h1>
+                    <Header />
                     <AuthGuard>{children}</AuthGuard>
                 </AuthContextProvider>
             </body>
