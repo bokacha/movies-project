@@ -1,13 +1,35 @@
-import Image from 'next/image';
-import styles from './page.module.css';
+'use client';
+
+import { cinema } from '@prisma/client';
+import { useEffect, useState } from 'react';
+
+const CITY = 'Prijedor';
 
 export default function Home() {
-    return (
-        <main className={styles.main}>
-            <div>
-                <h1>Movies</h1>
-                <p>Welcome!</p>
-            </div>
-        </main>
-    );
+    const [cinemas, setCinemas] = useState<cinema[]>([]);
+
+    async function fetchCinemas() {
+        const response = await fetch(`/api/cinema?city=${CITY}`, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            return;
+        }
+
+        const fetchedCinemas = await response.json();
+        console.log(fetchedCinemas);
+
+        setCinemas(fetchedCinemas.cinemas as cinema[]);
+    }
+
+    useEffect(() => {
+        fetchCinemas();
+    }, []);
+
+    if (cinemas.length === 0) {
+        return <p>{`No cinemas found for city: ${CITY}`}</p>;
+    }
+
+    return <h1>{`Available cinemas: ${cinemas.length}`}</h1>;
 }
