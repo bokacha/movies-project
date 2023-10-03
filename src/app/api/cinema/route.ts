@@ -16,6 +16,9 @@ export async function GET(request: NextRequest) {
         where: {
             city: city,
         },
+        include: {
+            movies: true,
+        },
     });
 
     return NextResponse.json({ cinemas });
