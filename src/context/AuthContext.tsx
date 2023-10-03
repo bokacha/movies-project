@@ -44,17 +44,29 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
         setUser(userJson.user as user);
 
+        localStorage.setItem('user', JSON.stringify(userJson.user));
+
         return true;
     }
 
     function logout() {
         setUser(null);
+        localStorage.removeItem('user');
     }
 
     useEffect(() => {
-        if (!user) {
-            router.push('/login');
+        if (user) {
+            return;
         }
+
+        const storedUser = localStorage.getItem('user');
+
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+            return;
+        }
+
+        router.push('/login');
     }, [router, user]);
 
     return (
