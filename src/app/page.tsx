@@ -1,8 +1,9 @@
 'use client';
 
+import { AuthContext } from '@/context/AuthContext';
 import { cinema, Prisma } from '@prisma/client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const CITY = 'Banja Luka';
 
@@ -10,6 +11,7 @@ type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
 
 export default function Home() {
     const [cinemas, setCinemas] = useState<CinemaWithMovies[]>([]);
+    const {} = useContext(AuthContext);
 
     async function fetchCinemas() {
         const response = await fetch(`/api/cinema?city=${CITY}`, {
