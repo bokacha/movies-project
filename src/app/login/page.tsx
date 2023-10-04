@@ -48,6 +48,7 @@ export default function LoginPage() {
                     height: 'fit-content',
                     backgroundColor: '#292929',
                     boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)',
+                    width: 260,
                 }}
             >
                 <label>Username: </label>
@@ -59,7 +60,7 @@ export default function LoginPage() {
                     style={{
                         fontSize: 16,
                         marginTop: 16,
-                        backgroundColor: '#ffc44f',
+                        backgroundColor: '#ff4f42',
                         padding: 8,
                         border: 0,
                         borderRadius: 8,
@@ -68,7 +69,9 @@ export default function LoginPage() {
                     Login
                 </button>
                 {isFailedLogin === true && (
-                    <p color="red">Incorrect username or password.</p>
+                    <p style={{ color: 'red' }}>
+                        Incorrect username or password.
+                    </p>
                 )}
             </form>
         </div>

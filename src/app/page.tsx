@@ -46,20 +46,31 @@ export default function Home() {
                             display: 'flex',
                             flexDirection: 'column',
                             borderStyle: 'solid',
-                            borderWidth: 2,
+                            borderWidth: 0,
                             borderColor: 'white',
-                            borderRadius: 8,
-                            padding: 12,
+                            borderRadius: 16,
                             minWidth: 250,
-                            gap: 16,
+                            gap: 4,
+                            backgroundColor: '#292929',
+                            boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)',
                         }}
                     >
-                        <h1>{cinema.name}</h1>
+                        <h1
+                            style={{
+                                backgroundColor: '#ff4f42',
+                                padding: 8,
+                                borderTopLeftRadius: 16,
+                                borderTopRightRadius: 16,
+                            }}
+                        >
+                            {cinema.name}
+                        </h1>
                         <div
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: 4,
+                                padding: 12,
                             }}
                         >
                             {cinema.movies.map((movie) => {
@@ -67,6 +78,7 @@ export default function Home() {
                                     <Link
                                         key={movie.id}
                                         href={`/movie/${movie.id}`}
+                                        style={{ fontSize: 20 }}
                                     >
                                         {movie.name}
                                     </Link>
