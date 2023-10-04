@@ -7,9 +7,31 @@ export function Header() {
     const { logout, user } = useContext(AuthContext);
 
     return (
-        <div>
+        <div
+            style={{
+                display: 'flex',
+                padding: 8,
+            }}
+        >
             <h1>Cinema application</h1>
-            {user && <button onClick={logout}>Logout</button>}
+            {user && (
+                <div
+                    style={{
+                        display: 'flex',
+                        marginLeft: 'auto',
+                        gap: 8,
+                        alignItems: 'center',
+                    }}
+                >
+                    <p>{`${user.name} ${user.surname}`}</p>
+                    <button
+                        style={{ fontSize: 16, padding: 4 }}
+                        onClick={logout}
+                    >
+                        Logout
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

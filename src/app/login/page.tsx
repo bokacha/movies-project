@@ -27,15 +27,29 @@ export default function LoginPage() {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <label>Username: </label>
-            <input type="text" name="username" />
-            <label>Password: </label>
-            <input type="password" name="password" />
-            <button type="submit">Login</button>
-            {isFailedLogin === true && (
-                <p color="red">Incorrect username or password.</p>
-            )}
-        </form>
+        <div
+            style={{
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+                marginTop: 64,
+            }}
+        >
+            <form
+                onSubmit={onSubmit}
+                style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+            >
+                <label>Username: </label>
+                <input type="text" name="username" />
+                <label>Password: </label>
+                <input type="password" name="password" />
+                <button type="submit" style={{ fontSize: 16 }}>
+                    Login
+                </button>
+                {isFailedLogin === true && (
+                    <p color="red">Incorrect username or password.</p>
+                )}
+            </form>
+        </div>
     );
 }
