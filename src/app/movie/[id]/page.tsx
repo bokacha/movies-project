@@ -52,7 +52,7 @@ export default function MoviePage(params: MoviePageParams) {
                 display: 'flex',
                 flex: 1,
                 justifyContent: 'center',
-                paddingTop: 32,
+                padding: 16,
             }}
         >
             <div
@@ -61,11 +61,17 @@ export default function MoviePage(params: MoviePageParams) {
                     flexDirection: 'column',
                     maxWidth: 400,
                     gap: 16,
+                    backgroundColor: '#292929',
+                    padding: 16,
+                    borderRadius: 16,
+                    boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)',
                 }}
             >
-                <h1>{movie.name}</h1>
+                <h1 style={{ color: '#ff4f42' }}>{movie.name}</h1>
                 <p>{movie.description}</p>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div
+                    style={{ display: 'flex', flexDirection: 'column', gap: 4 }}
+                >
                     <p>{`Duration: ${movie.runtime}`}</p>
                     <p>{`Year: ${movie.year}`}</p>
                 </div>
