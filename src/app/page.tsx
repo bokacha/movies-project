@@ -3,7 +3,7 @@
 import { AuthContext } from '@/context/AuthContext';
 import { cinema, Prisma } from '@prisma/client';
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 type CinemaWithMovies = Prisma.cinemaGetPayload<{ include: { movies: true } }>;
 
@@ -11,23 +11,26 @@ export default function Home() {
     const [cinemas, setCinemas] = useState<CinemaWithMovies[]>([]);
     const { user } = useContext(AuthContext);
 
-    async function fetchCinemas() {
-        const response = await fetch(`/api/cinema?city=${user?.city}`, {
-            method: 'GET',
-        });
+    const fetchCinemas = useCallback(
+        async function fetchCinemas() {
+            const response = await fetch(`/api/cinema?city=${user?.city}`, {
+                method: 'GET',
+            });
 
-        if (!response.ok) {
-            return;
-        }
+            if (!response.ok) {
+                return;
+            }
 
-        const fetchedCinemas = await response.json();
+            const fetchedCinemas = await response.json();
 
-        setCinemas(fetchedCinemas.cinemas as CinemaWithMovies[]);
-    }
+            setCinemas(fetchedCinemas.cinemas as CinemaWithMovies[]);
+        },
+        [user?.city]
+    );
 
     useEffect(() => {
         fetchCinemas();
-    }, []);
+    }, [fetchCinemas]);
 
     if (cinemas.length === 0) {
         return <p>{`No cinemas found for city: ${user?.city}`}</p>;
