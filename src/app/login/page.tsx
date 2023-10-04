@@ -32,18 +32,39 @@ export default function LoginPage() {
                 display: 'flex',
                 flex: 1,
                 justifyContent: 'center',
-                marginTop: 64,
+                paddingTop: 64,
             }}
         >
             <form
                 onSubmit={onSubmit}
-                style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: 32,
+                    gap: 8,
+                    borderStyle: 'solid',
+                    borderRadius: 16,
+                    borderWidth: 0,
+                    height: 'fit-content',
+                    backgroundColor: '#292929',
+                    boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)',
+                }}
             >
                 <label>Username: </label>
                 <input type="text" name="username" />
                 <label>Password: </label>
                 <input type="password" name="password" />
-                <button type="submit" style={{ fontSize: 16 }}>
+                <button
+                    type="submit"
+                    style={{
+                        fontSize: 16,
+                        marginTop: 16,
+                        backgroundColor: '#ffc44f',
+                        padding: 8,
+                        border: 0,
+                        borderRadius: 8,
+                    }}
+                >
                     Login
                 </button>
                 {isFailedLogin === true && (

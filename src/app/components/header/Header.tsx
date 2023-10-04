@@ -10,22 +10,29 @@ export function Header() {
         <div
             style={{
                 display: 'flex',
-                padding: 8,
+                padding: 16,
+                backgroundColor: '#141414',
             }}
         >
-            <h1>Cinema application</h1>
+            <h1>Cinema Master</h1>
             {user && (
                 <div
                     style={{
                         display: 'flex',
                         marginLeft: 'auto',
-                        gap: 8,
+                        gap: 16,
                         alignItems: 'center',
                     }}
                 >
                     <p>{`${user.name} ${user.surname}`}</p>
                     <button
-                        style={{ fontSize: 16, padding: 4 }}
+                        style={{
+                            fontSize: 16,
+                            padding: 8,
+                            backgroundColor: '#ff4f42',
+                            border: 0,
+                            borderRadius: 8,
+                        }}
                         onClick={logout}
                     >
                         Logout
