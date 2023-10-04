@@ -25,7 +25,7 @@ export default function RootLayout({
                     width: '100vw',
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '100%',
+                    height: '100vh',
                 }}
             >
                 <AuthContextProvider>

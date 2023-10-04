@@ -37,21 +37,42 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <div style={{ display: 'flex', gap: 16, padding: 16 }}>
             {cinemas.map((cinema) => {
                 return (
-                    <div key={cinema.id}>
+                    <div
+                        key={cinema.id}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            borderStyle: 'solid',
+                            borderWidth: 2,
+                            borderColor: 'white',
+                            borderRadius: 8,
+                            padding: 12,
+                            minWidth: 250,
+                            gap: 16,
+                        }}
+                    >
                         <h1>{cinema.name}</h1>
-                        {cinema.movies.map((movie) => {
-                            return (
-                                <Link
-                                    key={movie.id}
-                                    href={`/movie/${movie.id}`}
-                                >
-                                    {movie.name}
-                                </Link>
-                            );
-                        })}
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 4,
+                            }}
+                        >
+                            {cinema.movies.map((movie) => {
+                                return (
+                                    <Link
+                                        key={movie.id}
+                                        href={`/movie/${movie.id}`}
+                                    >
+                                        {movie.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
                     </div>
                 );
             })}

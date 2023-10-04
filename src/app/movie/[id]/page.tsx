@@ -47,11 +47,29 @@ export default function MoviePage(params: MoviePageParams) {
     }
 
     return (
-        <div>
-            <h1>{movie.name}</h1>
-            <p>{movie.description}</p>
-            <p>{`Duration: ${movie.runtime}`}</p>
-            <p>{`Year: ${movie.year}`}</p>
+        <div
+            style={{
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+                paddingTop: 32,
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxWidth: 400,
+                    gap: 16,
+                }}
+            >
+                <h1>{movie.name}</h1>
+                <p>{movie.description}</p>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <p>{`Duration: ${movie.runtime}`}</p>
+                    <p>{`Year: ${movie.year}`}</p>
+                </div>
+            </div>
         </div>
     );
 }
